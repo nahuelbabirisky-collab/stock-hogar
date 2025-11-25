@@ -1,105 +1,191 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Stock Hogar</title>
-  <style>
-    :root { color-scheme: light dark; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:16px; }
-    h2 { margin: 0 0 12px 0; }
-    .card { border:1px solid #ddd; border-radius:8px; padding:12px; max-width:520px; }
-    label { display:block; margin:8px 0 4px; font-weight:600; }
-    input, select, button { width:100%; padding:10px; font-size:16px; }
-    button { background:#2e7d32; color:#fff; border:none; border-radius:6px; margin-top:12px; }
-    .row { display:flex; gap:12px; }
-    .row > div { flex:1; }
-    .msg { margin-top:8px; font-size:14px; }
-    .ok { color:#2e7d32; }
-    .err { color:#b00020; }
-  </style>
-</head>
-<body>
-  <h2>Stock Hogar</h2>
-  <div class="card">
-    <label>Producto</label>
-    <input id="producto" list="productos" placeholder="Ej: Manteca" />
-    <datalist id="productos">
-      <option value="Manteca"></option>
-      <option value="Leche"></option>
-      <option value="Queso"></option>
-      <option value="Huevos"></option>
-      <option value="Arroz"></option>
-      <option value="Fideos"></option>
-    </datalist>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Control de Stock</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f3f3f3;
+        margin: 0;
+        padding: 20px;
+      }
 
-    <div class="row">
-      <div>
-        <label>Tipo</label>
-        <select id="tipo">
-          <option value="ingreso">Ingreso</option>
-          <option value="salida">Salida</option>
-        </select>
-      </div>
-      <div>
-        <label>Fecha</label>
-        <input id="fecha" type="date" />
-      </div>
+      .container {
+        max-width: 500px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      select, input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+
+      button {
+        width: 100%;
+        background: #007bff;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Control de Stock</h2>
+
+      <label>Producto</label>
+      <select id="producto">
+        <option>Pollo</option>
+        <option>Churrasco</option>
+        <option>Carne picada</option>
+        <option>Hígado</option>
+        <option>Milanesas de pollo</option>
+        <option>Patitas de dinosaurios</option>
+        <option>Pescaditos</option>
+        <option>Cerdo</option>
+        <option>Fideos</option>
+        <option>Arroz</option>
+        <option>Porotos</option>
+        <option>Ravioles</option>
+        <option>Crema</option>
+        <option>Queso</option>
+        <option>Leche</option>
+        <option>Jamón</option>
+        <option>Sorrentinos</option>
+        <option>Tapas de empanadas</option>
+        <option>Tapas de tarta</option>
+        <option>Salame</option>
+        <option>Dulce</option>
+        <option>Yogurt</option>
+        <option>Tomate</option>
+        <option>Papas</option>
+        <option>Cebolla</option>
+        <option>Ají</option>
+        <option>Lechuga</option>
+        <option>Limón</option>
+        <option>Huevos</option>
+        <option>Manzana</option>
+        <option>Banana</option>
+        <option>Naranja</option>
+        <option>Acelga</option>
+        <option>Batata</option>
+        <option>Puré de tomate</option>
+        <option>Harina común</option>
+        <option>Harina leudante</option>
+        <option>Levadura</option>
+        <option>Comida Oreo</option>
+        <option>Vinagre</option>
+        <option>Aceite</option>
+        <option>Sal</option>
+        <option>Cacao</option>
+        <option>Condimentos</option>
+        <option>Comida de vagos</option>
+        <option>Aderezos</option>
+        <option>Jugos cajas</option>
+        <option>Pan lactal</option>
+        <option>Polenta</option>
+        <option>Lenteja</option>
+        <option>Adobo de pizza</option>
+        <option>Yerba</option>
+        <option>Azúcar</option>
+        <option>Manteca</option>
+        <option>Zanahoria</option>
+        <option>Papel higiénico</option>
+        <option>Perfume</option>
+        <option>Acondicionador</option>
+        <option>Shampoo</option>
+        <option>Jabón de cuerpo</option>
+        <option>Desodorante</option>
+        <option>Skip</option>
+        <option>Crema de pelo</option>
+        <option>Maquinitas de afeitar</option>
+        <option>Toallitas</option>
+        <option>Navajas de afeitar</option>
+        <option>Jabón de cara</option>
+        <option>Solo anto</option>
+        <option>Servilletas</option>
+        <option>Detergente</option>
+        <option>Esponja</option>
+        <option>Fósforos</option>
+        <option>Rejillas</option>
+        <option>Poet para piso</option>
+        <option>Lavandina</option>
+        <option>Raid</option>
+        <option>Trapo de piso</option>
+        <option>Blend</option>
+        <option>Algodón</option>
+        <option>Perfume de ambiente/ropa</option>
+        <option>Trapito para limpiar</option>
+        <option>Cera</option>
+      </select>
+
+      <label>Tipo de movimiento</label>
+      <select id="tipo">
+        <option value="ingreso">Ingreso</option>
+        <option value="salida">Salida</option>
+      </select>
+
+      <label>Fecha</label>
+      <input type="date" id="fecha">
+
+      <label>Origen</label>
+      <input type="text" id="origen" placeholder="Mercado / Despensa / Heladera / etc.">
+
+      <label>Comentario</label>
+      <textarea id="comentario" rows="3"></textarea>
+
+      <button onclick="enviar()">Registrar movimiento</button>
     </div>
 
-    <label>Comentario (opcional)</label>
-    <input id="comentario" placeholder="Notas..." />
+    <script>
+      function enviar() {
+        const url = "https://script.google.com/macros/s/AKfycbxzSDn1oMwrLiXedn4Moik3l2JqiPcTq_ovutID7Ch5sk4LzG2Suq6uhCNQuwkkktX1/exec";
 
-    <button id="guardar">Guardar</button>
-    <div id="msg" class="msg"></div>
-  </div>
+        const data = {
+          producto: document.getElementById("producto").value,
+          tipo: document.getElementById("tipo").value,
+          fecha: document.getElementById("fecha").value,
+          origen: document.getElementById("origen").value,
+          comentario: document.getElementById("comentario").value,
+          api_key: "N4hu3l_Stock_Clave_2025"
+        };
 
-  <script>
-    // Nueva URL del Web App
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybxX-QUZg_U03mjo344kWwaRWXAEY1br6iurEPxG-gz26XQi0Y881bMziMsz-8ftlo/exec';
-
-    // Forzar fecha de hoy por defecto
-    document.getElementById('fecha').value = new Date().toISOString().slice(0,10);
-
-    document.getElementById('guardar').addEventListener('click', async () => {
-      const msg = document.getElementById('msg');
-      msg.textContent = ''; msg.className = 'msg';
-
-      const producto = document.getElementById('producto').value.trim();
-      const tipo = document.getElementById('tipo').value;
-      const fecha = document.getElementById('fecha').value;  // YYYY-MM-DD
-      const comentario = document.getElementById('comentario').value.trim();
-
-      if (!producto) { msg.textContent = 'Ingresá un producto.'; msg.className += ' err'; return; }
-      if (!fecha) { msg.textContent = 'Seleccioná una fecha.'; msg.className += ' err'; return; }
-
-      try {
-        // Proxy CORS para evitar bloqueos en github.io y móviles
-        const proxy = 'https://cors.isomorphic-git.org/';
-        const res = await fetch(proxy + APPS_SCRIPT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ producto, tipo, fecha, comentario, origen:'manual' })
-        });
-
-        // Si el proxy devuelve texto plano, intentamos parsear seguro
-        const text = await res.text();
-        let data;
-        try { data = JSON.parse(text); } catch { data = { ok:false, error:'Respuesta no válida: ' + text.slice(0,120) }; }
-
-        if (data.ok) {
-          msg.textContent = 'Movimiento guardado.';
-          msg.className += ' ok';
-          document.getElementById('comentario').value = '';
-        } else {
-          msg.textContent = 'Error: ' + (data.error || 'No se pudo guardar');
-          msg.className += ' err';
-        }
-      } catch (e) {
-        msg.textContent = 'Error de red: ' + e.message;
-        msg.className += ' err';
+        fetch(url, {
+          method: "POST",
+          contentType: "application/json",
+          body: JSON.stringify(data)
+        })
+        .then(r => r.text())
+        .then(t => alert("Respuesta: " + t))
+        .catch(err => alert("Error: " + err));
       }
-    });
-  </script>
-</body>
+    </script>
+
+  </body>
 </html>
