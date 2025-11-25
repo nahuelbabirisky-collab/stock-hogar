@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stock Hogar</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:16px; }
+    h2 { margin: 0 0 12px 0; }
+    .card { border:1px solid #ddd; border-radius:8px; padding:12px; max-width:520px; }
+    label { display:block; margin:8px 0 4px; font-weight:600; }
+    input, select, button { width:100%; padding:10px; font-size:16px; }
+    button { background:#2e7d32; color:#fff; border:none; border-radius:6px; margin-top:12px; }
+    .row { display:flex; gap:12px; }
+    .row > div { flex:1; }
+    .msg { margin-top:8px; font-size:14px; }
+    .ok { color:#2e7d32; }
+    .err { color:#b00020; }
+  </style>
+</head>
+<body>
+  <h2>Stock Hogar</h2>
+  <div class="card">
+    <label>Producto</label>
+    <input id="producto" list="productos" placeholder="Ej: Manteca" />
+    <datalist id="productos">
+      <option value="Manteca"></option>
+      <option value="Leche"></option>
+      <option value="Queso"></option>
+      <option value="Huevos"></option>
+      <option value="Arroz"></option>
+      <option value="Fideos"></option>
+    </datalist>
+
+    <div class="row">
+      <div>
+        <label>Tipo</label>
+        <select id="tipo">
+          <option value="ingreso">Ingreso</option>
+          <option value="salida">Salida</option>
+        </select>
+      </div>
+      <div>
+        <label>Fecha</label>
+        <input id="fecha" type="date" />
+      </div>
+    </div>
+
+    <label>Comentario (opcional)</label>
+    <input id="comentario" placeholder="Notas..." />
+
+    <button id="guardar">Guardar</button>
+    <div id="msg" class="msg"></div>
+  </div>
+
+  <script>
+    // URL del Web App (Apps Script)
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyq5qrUaTAcLNlF5Ps_biZcQWa8SXZU1FfL4EX_rTZwXdz8a-pMC_P_CDAzvUq3yODk/exec';
+
+    // Fecha por defecto: hoy
+    document.getElementById('fecha').value = new Date().toISOString().slice(0,10);
+
+    document.getElementById('guardar').addEventListener('click', async () => {
+      const msg = document.getElementById('msg');
+      msg.textContent = ''; msg.className = 'msg';
+
+      const producto = document.getElementById('producto').value.trim();
+      const tipo = document.getElementById('tipo').value;
+      const fecha = document.getElementById('fecha').value;  // YYYY-MM-DD
+      const comentario = document.getElementById('comentario').value.trim();
+
+      if (!producto) { msg.textContent = 'Ingresá un producto.'; msg.className += ' err'; return; }
+      if (!fecha) { msg.textContent = 'Seleccioná una fecha.'; msg.className += ' err'; return; }
+
+      try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ producto, tipo, fecha, comentario, origen:'manual' })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          msg.textContent = 'Movimiento guardado.'; 
+          msg.className += ' ok';
+          document.getElementById('comentario').value = '';
+        } else {
+          msg.textContent = 'Error: ' + (data.error || 'No se pudo guardar'); 
+          msg.className += ' err';
+        }
+      } catch (e) {
+        msg.textContent = 'Error de red: ' + e.message; 
+        msg.className += ' err';
+      }
+    });
+  </script>
+</body>
+</html>
